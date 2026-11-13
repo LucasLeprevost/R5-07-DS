@@ -1,0 +1,24 @@
+name: Q1 Archive TOTO
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  archive-toto:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer les fichiers du dépôt
+        uses: actions/checkout@v4
+
+      - name: Copier TOTO.txt vers Q1_archive_TOTO.txt
+        run: cp TOTO.txt Q1_archive_TOTO.txt
+
+      - name: Pousser le nouveau fichier sur le dépôt
+        run: |
+          git config --global user.name "TonNom"
+          git config --global user.email "ton.email@etu.univ-lehavre.fr"
+          git pull --rebase
+          git add Q1_archive_TOTO.txt
+          git commit -m "Archive Q1 [skip ci]"
+          git push
